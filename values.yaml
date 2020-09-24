@@ -110,10 +110,13 @@ images:
 
 # Environment variables for all airflow containers
 env:
+  global:
+    - SHA=$(git rev-parse HEAD)
+    - CLOUDSDK_CORE_DISABLE_PROMPTS=1
   - name: "AIRFLOW__KUBERNETES__WORKER_CONTAINER_REPOSITORY"
     value: "registry:5000/airflow-image"
   - name: "AIRFLOW__KUBERNETES__WORKER_CONTAINER_TAG"
-    value: "1.0.0"
+    value: $SHA
   - name: "AIRFLOW__KUBERNETES__RUN_AS_USER"
     value: "50000"
   - name: "AIRFLOW__KUBERNETES__DAGS_IN_IMAGE"
