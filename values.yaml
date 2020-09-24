@@ -23,6 +23,9 @@
 uid: 50000
 gid: 50000
 
+env:
+  global:
+    - SHA=$(git rev-parse HEAD)
 # Airflow home directory
 # Used for mount paths
 airflowHome: "/opt/airflow"
@@ -31,7 +34,7 @@ airflowHome: "/opt/airflow"
 defaultAirflowRepository: registry:5000/airflow-image
 
 # Default airflow tag to deploy
-defaultAirflowTag: 1.0.4
+defaultAirflowTag: 1.0.0
 
 
 # Select certain nodes for airflow pods.
@@ -110,9 +113,6 @@ images:
 
 # Environment variables for all airflow containers
 env:
-  global:
-    - SHA=$(git rev-parse HEAD)
-    - CLOUDSDK_CORE_DISABLE_PROMPTS=1
   - name: "AIRFLOW__KUBERNETES__WORKER_CONTAINER_REPOSITORY"
     value: "registry:5000/airflow-image"
   - name: "AIRFLOW__KUBERNETES__WORKER_CONTAINER_TAG"
@@ -121,6 +121,7 @@ env:
     value: "50000"
   - name: "AIRFLOW__KUBERNETES__DAGS_IN_IMAGE"
     value: "TRUE"
+
 # - name: ""
 #   value: ""
 
